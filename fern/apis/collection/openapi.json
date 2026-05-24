@@ -1,25 +1,9 @@
-{
+ {
   "info": {
     "title": "FicticioCommerce API",
     "version": "1.0.0",
     "description": "Colección educativa ficticia — comercio digital con pagos. Sin relación con empresas reales.\n\n**ES:**  \nFicticioCommerce API es un proyecto educativo que simula un comercio digital con flujo completo de pagos, validaciones, pedidos y reembolsos.  \n**Nota:** Este proyecto es ficticio y no tiene relación con ninguna empresa real.\n\n**EN:**  \nFicticioCommerce API is an educational project simulating a digital commerce with a complete flow of payments, validations, orders, and refunds.  \n**Note:** This project is fictional and not related to any real company."
   },
-  "tags": [
-    {
-      "name": "Catálogo",
-      "description": "**ES:** Contiene los endpoints para explorar el catálogo de productos. Usa estas solicitudes para obtener la lista completa de productos disponibles, incluyendo sus detalles, para que los clientes puedan mostrar la oferta a los usuarios finales.\n\n**EN:** Contains endpoints for browsing the product catalog. Use these requests to retrieve the full list of available products, including their details, so clients can display offerings to end users."
-{
-  "info": {
-    "title": "FicticioCommerce API",
-    "version": "1.0.0",
-    "description": "Colección educativa ficticia — comercio digital con pagos. Sin relación con empresas reales.\n\n**ES:**  \nFicticioCommerce API es un proyecto educativo que simula un comercio digital con flujo completo de pagos, validaciones, pedidos y reembolsos.  \n**Nota:** Este proyecto es ficticio y no tiene relación con ninguna empresa real.\n\n**EN:**  \nFicticioCommerce API is an educational project simulating a digital commerce with a complete flow of payments, validations, orders, and refunds.  \n**Note:** This project is fictional and not related to any real company."
-  },
-  "servers": [
-    {
-      "url": "https://ee492c36-cb82-4a82-92af-4cb2f15957a2.mock.pstmn.io",
-      "description": "Postman Mock Server"
-    }
-  ],
   "tags": [
     {
       "name": "Catálogo",
@@ -152,29 +136,23 @@
         },
         "description": "**ES:** Obtiene la lista completa de productos disponibles en el catálogo. Útil para mostrar el inventario de productos a los usuarios finales antes de iniciar un proceso de compra.\n\n**EN:** Retrieves the full list of products available in the catalog. Useful for displaying the product inventory to end users before starting a purchase flow.",
         "operationId": "getV1List-products",
+        "requestBody": {
+          "content": {
+            "application/json": {}
+          }
+        },
         "x-fern-sdk-group-name": [
           "Catálogo"
         ],
         "x-fern-sdk-method-name": "GET /list-products"
       }
     },
-   "/v1/refund/{order_id}": {
+    "/v1/refund/ord_9981": {
       "post": {
         "tags": [
           "Reembolsos"
         ],
         "summary": "POST /refund/{order_id}",
-        "parameters": [
-  {
-    "name": "order_id",
-    "in": "path",
-    "required": true,
-    "schema": {
-      "type": "string"
-    },
-    "example": "ord_9981"
-  }
-],
         "responses": {
           "200": {
             "content": {
@@ -630,18 +608,7 @@
         "x-fern-sdk-method-name": "POST /validate-transaction"
       }
     },
-    "/v1/order-status/{order_id}": {
-      "parameters": [
-  {
-    "name": "order_id",
-    "in": "path",
-    "required": true,
-    "schema": {
-      "type": "string"
-    },
-    "example": "ord_9981"
-  }
-],
+    "/v1/order-status/ord_9981": {
       "get": {
         "tags": [
           "Pedidos"
@@ -774,7 +741,7 @@
   "openapi": "3.1.0",
   "servers": [
     {
-      "url": "https://ee492c36-cb82-4a82-92af-4cb2f15957a2.mock.pstmn.io"
+      "url": "https://api.ficticiocommerce.com"
     }
   ],
   "security": [
