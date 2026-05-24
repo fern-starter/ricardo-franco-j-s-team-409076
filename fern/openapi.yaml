@@ -1,6 +1,6 @@
 openapi: 3.1.0
 servers:
-  - url: https://api.plantstore.dev/v3
+  - url: https://a242bab7-89f7-4750-a1d5-099cf4deb99d.mock.pstmn.io
     description: Demo server
 info:
   description: |
