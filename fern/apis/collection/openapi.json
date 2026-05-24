@@ -152,23 +152,29 @@
         },
         "description": "**ES:** Obtiene la lista completa de productos disponibles en el catálogo. Útil para mostrar el inventario de productos a los usuarios finales antes de iniciar un proceso de compra.\n\n**EN:** Retrieves the full list of products available in the catalog. Useful for displaying the product inventory to end users before starting a purchase flow.",
         "operationId": "getV1List-products",
-        "requestBody": {
-          "content": {
-            "application/json": {}
-          }
-        },
         "x-fern-sdk-group-name": [
           "Catálogo"
         ],
         "x-fern-sdk-method-name": "GET /list-products"
       }
     },
-    "/v1/refund/ord_9981": {
+   "/v1/refund/{order_id}": {
       "post": {
         "tags": [
           "Reembolsos"
         ],
         "summary": "POST /refund/{order_id}",
+        "parameters": [
+  {
+    "name": "order_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+      "type": "string"
+    },
+    "example": "ord_9981"
+  }
+],
         "responses": {
           "200": {
             "content": {
@@ -624,7 +630,18 @@
         "x-fern-sdk-method-name": "POST /validate-transaction"
       }
     },
-    "/v1/order-status/ord_9981": {
+    "/v1/order-status/{order_id}": {
+      "parameters": [
+  {
+    "name": "order_id",
+    "in": "path",
+    "required": true,
+    "schema": {
+      "type": "string"
+    },
+    "example": "ord_9981"
+  }
+],
       "get": {
         "tags": [
           "Pedidos"
@@ -757,7 +774,7 @@
   "openapi": "3.1.0",
   "servers": [
     {
-      "url": "https://api.ficticiocommerce.com"
+      "url": "https://ee492c36-cb82-4a82-92af-4cb2f15957a2.mock.pstmn.io"
     }
   ],
   "security": [
