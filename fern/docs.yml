@@ -1,5 +1,3 @@
-# yaml-language-server: $schema=https://schema.buildwithfern.dev/docs-yml.json
-
 instances:
   - url: ricardo-franco-j-s-team-966940.docs.buildwithfern.com
     edit-this-page:
@@ -27,16 +25,26 @@ navigation:
       - Reembolsos:
           summary: docs/pages/reembolsos-overview.mdx
     summary: docs/pages/collection-overview.mdx
+  - page: Autenticación / Authentication
+    path: ./docs/pages/autenticacin-/-authentication.mdx
+  - section: Endpoints
+    contents:
+      - page: Endpoints / Endpoints
+        path: ./docs/pages/autenticacin-/-endpoints.mdx
+  - page: Tests automatizados / Automated Tests
+    path: ./docs/pages/autenticacin-/-automated-tests.mdx
+  - page: Mock Server / Mock Server
+    path: ./docs/pages/autenticacin-/-mock-server.mdx
 colors:
   accent-primary:
-    light: "#008700"
-    dark: "#008700"
+    light: '#008700'
+    dark: '#008700'
   background:
-    light: "#FFFFFF"
-    dark: "#111113"
+    light: '#FFFFFF'
+    dark: '#111113'
   border:
-    light: "#E5E7EB"
-    dark: "#222325"
+    light: '#E5E7EB'
+    dark: '#222325'
 theme:
   page-actions: toolbar
   footer-nav: minimal

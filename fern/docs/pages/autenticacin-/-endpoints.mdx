@@ -1,0 +1,30 @@
+---
+title: Endpoints / Endpoints
+slug: endpoints/endpoints-/-endpoints
+---
+
+**ES:**
+
+- `GET /list-products` → catálogo de productos.
+- `POST /initiate-payment` → iniciar pago.
+- `POST /validate-transaction` → validar OTP.
+- `GET /order-status/{order_id}` → estado del pedido.
+- `POST /refund/{order_id}` → procesar reembolso.
+
+**EN:**
+
+- `GET /list-products` → product catalog.
+- `POST /initiate-payment` → initiate payment.
+- `POST /validate-transaction` → validate OTP.
+- `GET /order-status/{order_id}` → order status.
+- `POST /refund/{order_id}` → process refund.
+
+## Ejemplos
+
+### **Pago aprobado / Approved payment:**
+
+\{ "status": "approved", "order\_id": "ord\_9981", "transaction\_id": "txn\_abc123", "total\_amount": 1799.97, "currency": "USD", "requires\_otp": true, "message": "Payment initiated. OTP sent to customer." }
+
+### **Pago aprobado / Approved payment:**
+
+\{ "status": "rejected", "error\_code": "INSUFFICIENT\_FUNDS", "message": "The transaction was declined: insufficient funds." }
