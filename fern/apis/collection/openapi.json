@@ -8,6 +8,22 @@
     {
       "name": "Catálogo",
       "description": "**ES:** Contiene los endpoints para explorar el catálogo de productos. Usa estas solicitudes para obtener la lista completa de productos disponibles, incluyendo sus detalles, para que los clientes puedan mostrar la oferta a los usuarios finales.\n\n**EN:** Contains endpoints for browsing the product catalog. Use these requests to retrieve the full list of available products, including their details, so clients can display offerings to end users."
+{
+  "info": {
+    "title": "FicticioCommerce API",
+    "version": "1.0.0",
+    "description": "Colección educativa ficticia — comercio digital con pagos. Sin relación con empresas reales.\n\n**ES:**  \nFicticioCommerce API es un proyecto educativo que simula un comercio digital con flujo completo de pagos, validaciones, pedidos y reembolsos.  \n**Nota:** Este proyecto es ficticio y no tiene relación con ninguna empresa real.\n\n**EN:**  \nFicticioCommerce API is an educational project simulating a digital commerce with a complete flow of payments, validations, orders, and refunds.  \n**Note:** This project is fictional and not related to any real company."
+  },
+  "servers": [
+    {
+      "url": "https://ee492c36-cb82-4a82-92af-4cb2f15957a2.mock.pstmn.io",
+      "description": "Postman Mock Server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Catálogo",
+      "description": "**ES:** Contiene los endpoints para explorar el catálogo de productos. Usa estas solicitudes para obtener la lista completa de productos disponibles, incluyendo sus detalles, para que los clientes puedan mostrar la oferta a los usuarios finales.\n\n**EN:** Contains endpoints for browsing the product catalog. Use these requests to retrieve the full list of available products, including their details, so clients can display offerings to end users."
     },
     {
       "name": "Pagos",
