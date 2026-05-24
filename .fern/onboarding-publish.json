@@ -1,0 +1,10 @@
+{
+  "desiredContentHash": "7379b1f27d6f16210b185350268fa0ab969b0c34c107d07397be3b3431439fd6",
+  "docsUrl": "https://ricardo-franco-j-s-team-966940.docs.buildwithfern.com",
+  "starter": {
+    "repoOwner": "fern-api",
+    "repoName": "docs-starter-internal",
+    "commitSha": "63ef119238a1280f25fb1948cf2645fa9b7e9a21",
+    "label": "2026-05-21-upgrade-fern-cli-5.35.4"
+  }
+}

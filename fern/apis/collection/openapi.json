@@ -1,0 +1,761 @@
+{
+  "info": {
+    "title": "FicticioCommerce API",
+    "version": "1.0.0",
+    "description": "Colección educativa ficticia — comercio digital con pagos. Sin relación con empresas reales.\n\n**ES:**  \nFicticioCommerce API es un proyecto educativo que simula un comercio digital con flujo completo de pagos, validaciones, pedidos y reembolsos.  \n**Nota:** Este proyecto es ficticio y no tiene relación con ninguna empresa real.\n\n**EN:**  \nFicticioCommerce API is an educational project simulating a digital commerce with a complete flow of payments, validations, orders, and refunds.  \n**Note:** This project is fictional and not related to any real company."
+  },
+  "tags": [
+    {
+      "name": "Catálogo",
+      "description": "**ES:** Contiene los endpoints para explorar el catálogo de productos. Usa estas solicitudes para obtener la lista completa de productos disponibles, incluyendo sus detalles, para que los clientes puedan mostrar la oferta a los usuarios finales.\n\n**EN:** Contains endpoints for browsing the product catalog. Use these requests to retrieve the full list of available products, including their details, so clients can display offerings to end users."
+    },
+    {
+      "name": "Pagos",
+      "description": "**ES:** Contiene los endpoints para iniciar y procesar pagos. Usa estas solicitudes para comenzar un nuevo flujo de pago, enviar los datos de pago y recibir confirmación de una transacción exitosa o fallida.\n\n**EN:** Contains endpoints for initiating and processing payments. Use these requests to start a new payment flow, submit payment details, and receive confirmation of a successful or failed transaction."
+    },
+    {
+      "name": "Validaciones",
+      "description": "**ES:** Contiene los endpoints encargados de validar transacciones antes de que sean procesadas. Usa estas solicitudes para verificar que los datos de pago, montos y reglas de negocio sean correctos antes de confirmar cualquier operación financiera.\n\n**EN:** Contains endpoints responsible for validating transactions before they are processed. Use these requests to verify that payment data, amounts, and business rules are correct prior to committing any financial operation."
+    },
+    {
+      "name": "Pedidos",
+      "description": "**ES:** Contiene los endpoints para consultar información de pedidos. Usa estas solicitudes para obtener el estado actual de un pedido específico mediante su ID, permitiendo rastrear su progreso a lo largo del ciclo de cumplimiento.\n\n**EN:** Contains endpoints for querying order information. Use these requests to retrieve the current status of a specific order by its ID, allowing you to track progress through the fulfillment lifecycle."
+    },
+    {
+      "name": "Reembolsos",
+      "description": "**ES:** Contiene los endpoints para procesar reembolsos sobre pedidos existentes. Usa estas solicitudes para activar un reembolso dado el ID de un pedido, revirtiendo un pago previamente completado y devolviendo los fondos al cliente.\n\n**EN:** Contains endpoints for processing refunds on existing orders. Use these requests to trigger a refund for a given order ID, reversing a previously completed payment and returning funds to the customer."
+    }
+  ],
+  "paths": {
+    "/v1/list-products": {
+      "get": {
+        "tags": [
+          "Catálogo"
+        ],
+        "summary": "GET /list-products",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "products"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "products": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "product_id",
+                          "name",
+                          "price",
+                          "currency",
+                          "stock"
+                        ],
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "price": {
+                            "type": "number"
+                          },
+                          "stock": {
+                            "type": "integer"
+                          },
+                          "currency": {
+                            "type": "string"
+                          },
+                          "product_id": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "status": "success",
+                  "products": [
+                    {
+                      "name": "Laptop UltraSlim X1",
+                      "price": 1299.99,
+                      "stock": 15,
+                      "currency": "USD",
+                      "product_id": "prod_001"
+                    },
+                    {
+                      "name": "Auriculares Noise-Cancel Pro",
+                      "price": 249.99,
+                      "stock": 42,
+                      "currency": "USD",
+                      "product_id": "prod_002"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "code",
+                    "message"
+                  ],
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "code": 500,
+                  "status": "error",
+                  "message": "Internal server error. Please try again later."
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "description": "**ES:** Obtiene la lista completa de productos disponibles en el catálogo. Útil para mostrar el inventario de productos a los usuarios finales antes de iniciar un proceso de compra.\n\n**EN:** Retrieves the full list of products available in the catalog. Useful for displaying the product inventory to end users before starting a purchase flow.",
+        "operationId": "getV1List-products",
+        "requestBody": {
+          "content": {
+            "application/json": {}
+          }
+        },
+        "x-fern-sdk-group-name": [
+          "Catálogo"
+        ],
+        "x-fern-sdk-method-name": "GET /list-products"
+      }
+    },
+    "/v1/refund/ord_9981": {
+      "post": {
+        "tags": [
+          "Reembolsos"
+        ],
+        "summary": "POST /refund/{order_id}",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "order_id",
+                    "refund_id",
+                    "refunded_amount",
+                    "currency",
+                    "message"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "currency": {
+                      "type": "string"
+                    },
+                    "order_id": {
+                      "type": "string"
+                    },
+                    "refund_id": {
+                      "type": "string"
+                    },
+                    "refunded_amount": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "refunded",
+                  "message": "Refund processed successfully.",
+                  "currency": "USD",
+                  "order_id": "ord_9981",
+                  "refund_id": "ref_xyz789",
+                  "refunded_amount": 1799.97
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "code",
+                    "message"
+                  ],
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "code": 400,
+                  "status": "error",
+                  "message": "Order is not eligible for refund."
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "code",
+                    "message"
+                  ],
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "code": 500,
+                  "status": "error",
+                  "message": "Refund service temporarily unavailable."
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "description": "**ES:** Procesa el reembolso de un pedido existente a partir de su ID. Revierte el pago previamente completado y devuelve los fondos correspondientes al cliente.\n\n**EN:** Processes a refund for an existing order using its ID. Reverses the previously completed payment and returns the corresponding funds to the customer.",
+        "operationId": "postV1RefundOrd_9981",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "reason",
+                  "amount"
+                ],
+                "properties": {
+                  "amount": {
+                    "type": "number"
+                  },
+                  "reason": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "amount": 1799.97,
+                "reason": "Customer request"
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": [
+          "Reembolsos"
+        ],
+        "x-fern-sdk-method-name": "POST /refund/{order_id}"
+      }
+    },
+    "/v1/initiate-payment": {
+      "post": {
+        "tags": [
+          "Pagos"
+        ],
+        "summary": "POST /initiate-payment",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "order_id",
+                    "transaction_id",
+                    "total_amount",
+                    "currency",
+                    "requires_otp",
+                    "message"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "currency": {
+                      "type": "string"
+                    },
+                    "order_id": {
+                      "type": "string"
+                    },
+                    "requires_otp": {
+                      "type": "boolean"
+                    },
+                    "total_amount": {
+                      "type": "number"
+                    },
+                    "transaction_id": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "approved",
+                  "message": "Payment initiated. OTP sent to customer.",
+                  "currency": "USD",
+                  "order_id": "ord_9981",
+                  "requires_otp": true,
+                  "total_amount": 1799.97,
+                  "transaction_id": "txn_abc123"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "code",
+                    "message"
+                  ],
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "code": 400,
+                  "status": "error",
+                  "message": "Missing required field: total_amount."
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "402": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "error_code",
+                    "message"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "error_code": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "rejected",
+                  "message": "The transaction was declined: insufficient funds.",
+                  "error_code": "INSUFFICIENT_FUNDS"
+                }
+              }
+            },
+            "description": "Payment Required"
+          }
+        },
+        "description": "**ES:** Inicia un nuevo proceso de pago enviando los datos de la transacción. Devuelve una confirmación con el resultado del pago, indicando si fue aprobado o rechazado.\n\n**EN:** Initiates a new payment process by submitting transaction data. Returns a confirmation with the payment result, indicating whether it was approved or rejected.",
+        "operationId": "postV1Initiate-payment",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "customer_id",
+                  "items",
+                  "total_amount",
+                  "currency",
+                  "payment_method",
+                  "card_last4"
+                ],
+                "properties": {
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "product_id",
+                        "quantity",
+                        "unit_price"
+                      ],
+                      "properties": {
+                        "quantity": {
+                          "type": "integer"
+                        },
+                        "product_id": {
+                          "type": "string"
+                        },
+                        "unit_price": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "currency": {
+                    "type": "string"
+                  },
+                  "card_last4": {
+                    "type": "string"
+                  },
+                  "customer_id": {
+                    "type": "string"
+                  },
+                  "total_amount": {
+                    "type": "number"
+                  },
+                  "payment_method": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "items": [
+                  {
+                    "quantity": 1,
+                    "product_id": "prod_001",
+                    "unit_price": 1299.99
+                  },
+                  {
+                    "quantity": 2,
+                    "product_id": "prod_002",
+                    "unit_price": 249.99
+                  }
+                ],
+                "currency": "USD",
+                "card_last4": "4242",
+                "customer_id": "{{customer_id}}",
+                "total_amount": 1799.97,
+                "payment_method": "credit_card"
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": [
+          "Pagos"
+        ],
+        "x-fern-sdk-method-name": "POST /initiate-payment"
+      }
+    },
+    "/v1/validate-transaction": {
+      "post": {
+        "tags": [
+          "Validaciones"
+        ],
+        "summary": "POST /validate-transaction",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "order_id",
+                    "transaction_id",
+                    "message"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "order_id": {
+                      "type": "string"
+                    },
+                    "transaction_id": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "confirmed",
+                  "message": "Transaction validated successfully.",
+                  "order_id": "ord_9981",
+                  "transaction_id": "txn_abc123"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "code",
+                    "message"
+                  ],
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "code": 400,
+                  "status": "error",
+                  "message": "Invalid or expired OTP code."
+                }
+              }
+            },
+            "description": "Bad Request"
+          }
+        },
+        "description": "**ES:** Valida los datos de una transacción antes de procesarla. Verifica que los campos requeridos, montos y reglas de negocio sean correctos, evitando errores en etapas posteriores del flujo de pago.\n\n**EN:** Validates transaction data before it is processed. Checks that required fields, amounts, and business rules are correct, preventing errors in later stages of the payment flow.",
+        "operationId": "postV1Validate-transaction",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "order_id",
+                  "otp_code"
+                ],
+                "properties": {
+                  "order_id": {
+                    "type": "string"
+                  },
+                  "otp_code": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "order_id": "{{order_id}}",
+                "otp_code": "847291"
+              }
+            }
+          }
+        },
+        "x-fern-sdk-group-name": [
+          "Validaciones"
+        ],
+        "x-fern-sdk-method-name": "POST /validate-transaction"
+      }
+    },
+    "/v1/order-status/ord_9981": {
+      "get": {
+        "tags": [
+          "Pedidos"
+        ],
+        "summary": "GET /order-status/{order_id}",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "order_id",
+                    "status",
+                    "customer_id",
+                    "total_amount",
+                    "currency",
+                    "created_at",
+                    "items"
+                  ],
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "product_id",
+                          "quantity",
+                          "unit_price"
+                        ],
+                        "properties": {
+                          "quantity": {
+                            "type": "integer"
+                          },
+                          "product_id": {
+                            "type": "string"
+                          },
+                          "unit_price": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "currency": {
+                      "type": "string"
+                    },
+                    "order_id": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "customer_id": {
+                      "type": "string"
+                    },
+                    "total_amount": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "example": {
+                  "items": [
+                    {
+                      "quantity": 1,
+                      "product_id": "prod_001",
+                      "unit_price": 1299.99
+                    },
+                    {
+                      "quantity": 2,
+                      "product_id": "prod_002",
+                      "unit_price": 249.99
+                    }
+                  ],
+                  "status": "confirmed",
+                  "currency": "USD",
+                  "order_id": "ord_9981",
+                  "created_at": "2024-06-01T14:30:00Z",
+                  "customer_id": "cust_0042",
+                  "total_amount": 1799.97
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "code",
+                    "message"
+                  ],
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "code": 400,
+                  "status": "error",
+                  "message": "Invalid order_id format."
+                }
+              }
+            },
+            "description": "Bad Request"
+          }
+        },
+        "description": "**ES:** Consulta el estado actual de un pedido específico mediante su ID. Permite rastrear en qué etapa del ciclo de cumplimiento se encuentra el pedido, desde la confirmación hasta la entrega.\n\n**EN:** Retrieves the current status of a specific order by its ID. Allows tracking at which stage of the fulfillment lifecycle the order is, from confirmation through to delivery.",
+        "operationId": "getV1Order-statusOrd_9981",
+        "x-fern-sdk-group-name": [
+          "Pedidos"
+        ],
+        "x-fern-sdk-method-name": "GET /order-status/{order_id}"
+      }
+    }
+  },
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://api.ficticiocommerce.com"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
